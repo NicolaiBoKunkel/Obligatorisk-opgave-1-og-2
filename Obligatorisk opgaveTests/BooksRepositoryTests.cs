@@ -14,7 +14,6 @@ namespace Obligatorisk_opgave.Tests
 
         private BooksRepository _booksRepository = new();
 
-        private readonly Book _badBook = new Book() { Id = 1, Title = "Action Book", Price = 11.99};
 
         [TestInitialize]
         public void init()
@@ -52,10 +51,10 @@ namespace Obligatorisk_opgave.Tests
         public void DeleteTest()
         {
 
-            Book b = _booksRepository.Add(new Book { Title = "Romance Book", Price = 39.99 });
-            Book? book = _booksRepository.Delete(b.Id);
+
+            Book? book = _booksRepository.Delete(10);
             Assert.IsNotNull(book);
-            Assert.AreEqual("Romance Book", book.Title);
+            Assert.AreEqual("Book 1", book.Title);
 
             Book? book2 = _booksRepository.Delete(book.Id);
             Assert.IsNull(book2);
@@ -66,16 +65,15 @@ namespace Obligatorisk_opgave.Tests
         public void UpdateTest()
         {
 
-            Book b = _booksRepository.Add(new Book { Title = "Eventyr Bog", Price = 49.95 });
-            Book? book = _booksRepository.Update(b.Id, new Book { Title = "Sjov Bog", Price = 20 });
+            Book? book = _booksRepository.Update(10, new Book { Title = "Sjov Bog", Price = 20 });
             Assert.IsNotNull(book);
-            Book? book2 = _booksRepository.GetById(b.Id);
-            Assert.AreEqual("Eventyr Bog", book.Title);
+            Book? book2 = _booksRepository.GetById(10);
+            Assert.AreEqual("Sjov Bog", book2.Title);
 
             Assert.IsNull(
-                _booksRepository.Update(-1, new Book { Title = "Gammel Bog", Price = 9.99 }));
+                _booksRepository.Update(-1, new Book { Title = "Sjov Bog", Price = 9.99 }));
             Assert.ThrowsException<ArgumentException>(
-                () => _booksRepository.Update(b.Id, new Book { Title = "", Price = 9 }));
+                () => _booksRepository.Update(10, new Book { Title = "x", Price = 9 }));
 
         }
     }

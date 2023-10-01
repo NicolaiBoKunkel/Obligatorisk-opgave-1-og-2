@@ -68,12 +68,12 @@ namespace Obligatorisk_opgave
         {
             book.Validate();
             Book? existingBook = GetById(id);
-            if (book == null)
+            if (existingBook == null)
             {
                 return null;
             }
-            book.Title = book.Title;
-            book.Price = book.Price;
+            existingBook.Title = book.Title;
+            existingBook.Price = book.Price;
             return existingBook;
         }
     }
