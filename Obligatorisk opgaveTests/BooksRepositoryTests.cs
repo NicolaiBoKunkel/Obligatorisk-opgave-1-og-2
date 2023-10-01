@@ -14,6 +14,8 @@ namespace Obligatorisk_opgave.Tests
 
         private BooksRepository _booksRepository = new();
 
+        private readonly Book _badBook = new Book() { Id = 1, Title = "Action Book", Price = 11.99};
+
         [TestInitialize]
         public void init()
         {
@@ -50,7 +52,7 @@ namespace Obligatorisk_opgave.Tests
         public void DeleteTest()
         {
 
-            Book b = _booksRepository.Add(new Book { Id = 1, Title = "Romance Book", Price = 39.99 });
+            Book b = _booksRepository.Add(new Book { Title = "Romance Book", Price = 39.99 });
             Book? book = _booksRepository.Delete(b.Id);
             Assert.IsNotNull(book);
             Assert.AreEqual("Romance Book", book.Title);
@@ -64,7 +66,7 @@ namespace Obligatorisk_opgave.Tests
         public void UpdateTest()
         {
 
-            Book b = _booksRepository.Add(new Book { Id = 2, Title = "Eventyr Bog", Price = 49.95 });
+            Book b = _booksRepository.Add(new Book { Title = "Eventyr Bog", Price = 49.95 });
             Book? book = _booksRepository.Update(b.Id, new Book { Title = "Sjov Bog", Price = 20 });
             Assert.IsNotNull(book);
             Book? book2 = _booksRepository.GetById(b.Id);
