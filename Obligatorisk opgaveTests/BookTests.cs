@@ -14,7 +14,7 @@ namespace Obligatorisk_opgave.Tests
 
         private Book book = new Book { Id = 1, Title = "Story Book", Price = 100 };
         private Book nullTitleBook = new Book { Id = 2, Title = null, Price = 100 };
-        private Book invalidTitleBook = new Book { Id = 3, Title = "no", Price = 100 };
+        private Book invalidTitleBook = new Book { Id = 3, Title = "ok", Price = 100 };
         private Book invalidPriceBook = new Book { Id = 4, Title = "Romantic Book", Price = 10000 };
 
 

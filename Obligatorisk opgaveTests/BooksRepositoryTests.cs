@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static Obligatorisk_opgave.BooksRepository;
 
 namespace Obligatorisk_opgave.Tests
 {
@@ -23,14 +24,35 @@ namespace Obligatorisk_opgave.Tests
             _booksRepository.Add(new Book { Id = 20, Title = "Book 2", Price = 15.49 });
             _booksRepository.Add(new Book { Id = 30, Title = "Book 3", Price = 12.99 });
             _booksRepository.Add(new Book { Id = 40, Title = "Book 4", Price = 8.95 });
-            _booksRepository.Add(new Book { Id = 50, Title = "Book 5", Price = 19.99 });
+            _booksRepository.Add(new Book { Id = 50, Title = "Book 5", Price = 8.95 });
         }
 
         [TestMethod()]
-        public void GetTest()
+        public void GetTestFilterByPrice()
         {
-            Assert.Fail();
+            var result = _booksRepository.Get(byPrice: 8.95);
+
+            Assert.AreEqual(2, result.Count);
+            Assert.IsTrue(result.All(b => b.Price == 8.95));
         }
+        [TestMethod()]
+        public void GetTestSortByTitle()
+        {
+            var result = _booksRepository.Get(sort: SortBy.Title);
+
+            Assert.AreEqual(5, result.Count);
+            Assert.IsTrue(result.SequenceEqual(_booksRepository.Get().OrderBy(b => b.Title)));
+
+        }
+        [TestMethod()]
+        public void GetTestSortByPrice()
+        {
+            var result = _booksRepository.Get(sort: SortBy.Price);
+
+            Assert.AreEqual(5, result.Count); 
+            Assert.IsTrue(result.SequenceEqual(_booksRepository.Get().OrderBy(b => b.Price)));
+        }
+
 
         [TestMethod()]
         public void GetByIdTest()

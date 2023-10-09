@@ -28,7 +28,7 @@
 
         public void ValidatePrice()
         {
-            if (Price <= 0 || Price > 1200)
+            if (Price < 0 || Price > 1200)
             {
                 throw new ArgumentOutOfRangeException("Price must be between 0 and 1200");
             }

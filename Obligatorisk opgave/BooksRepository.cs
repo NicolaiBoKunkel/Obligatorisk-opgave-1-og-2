@@ -12,7 +12,7 @@ namespace Obligatorisk_opgave
 
         private readonly List<Book> _book = new List<Book>();
 
-        public enum SortBy { Tile, Price}
+        public enum SortBy { Title, Price}
 
 
 
@@ -22,13 +22,13 @@ namespace Obligatorisk_opgave
             List<Book> result = new(_book);
             if (byPrice != null)
             {
-                result = result.Where(b => b.Price > byPrice).ToList();
+                result = result.Where(b => b.Price == byPrice).ToList();
             }
             if (sort != null)
             {
                 switch (sort) { 
-                    case SortBy.Tile:
-                        result = result.OrderBy(b => b.Price).ToList();
+                    case SortBy.Title:
+                        result = result.OrderBy(b => b.Title).ToList();
                         break;
                     case SortBy.Price:
                         result = result.OrderBy(b => b.Price).ToList();
@@ -37,8 +37,6 @@ namespace Obligatorisk_opgave
             }
 
             return result;
-
-
         }
 
         public Book? GetById(int id)
